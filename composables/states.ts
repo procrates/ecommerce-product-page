@@ -5,7 +5,7 @@ export const useQuantity = () => useState<number>('itemQuantity', () => 1)
 
 export const useCartItems = () => useState('cartItems', () => [])
 
-export const useProducts = () => useState('product', () => [
+export const useProducts = () => useState('products', () => [
     {
         id: 1,
         company: 'Sneaker company',

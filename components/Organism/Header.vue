@@ -42,15 +42,13 @@
                     />
                 </svg>
             </button>
-            <span>
+            <span class="w-8 h-8">
                 <img src="/images/image-avatar.png" alt class="w-8 h-8" />
             </span>
         </div>
     </header>
 </template>
 <script setup lang="ts">
-import { useCartState, useNavState } from "~~/composables/states";
-
 const navState = useNavState()
 const openMenu = () => { navState.value = true }
 const cartState = useCartState()

@@ -1,7 +1,9 @@
 <template>
-    <div class="desktop:flex flex-row desktop:items-center">
+    <div
+        class="desktop:flex flex-row desktop:mt-20 desktop:mx-20 desktop:w-full desktop:justify-evenly desktop:items-center"
+    >
         <MoleculeSlider />
-        <section class="mx-5 mt-5 desktop:w-1/3">
+        <section class="mx-5 desktop:ml-36 desktop:w-1/3 desktop:flex-grow mt-10 desktop:mt-0">
             <MoleculeProductInfo
                 :company="currentProduct.company"
                 :title="currentProduct.title"

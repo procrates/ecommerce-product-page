@@ -1,6 +1,7 @@
 <template>
     <section
-        v-show="cartState"
+        v-if="cartState"
+        ref="cartRef"
         class="absolute flex flex-col top-16 z-10 bg-neutral-white rounded-xl inset-x-2 desktop:w-1/4 desktop:right-2 desktop:left-auto desktop:shadow-2xl"
     >
         <h1 class="font-bold bg-neutral-light-grayish-blue rounded-t-xl p-5">Cart</h1>
@@ -54,8 +55,10 @@
     </section>
 </template>
 <script setup lang="ts">
+const cartRef = ref(null)
 const cartState = useCartState()
 
+onClickOutside(cartRef, () => cartState.value = !cartState.value)
 const cartItems = useCartItems()
 
 const totalItemPrice = (item) => {

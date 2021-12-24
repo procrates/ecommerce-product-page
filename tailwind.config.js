@@ -1,3 +1,4 @@
+const plugin = require('tailwindcss/plugin');
 module.exports = {
   content: [
     "./assets/**/*.css",
@@ -16,6 +17,10 @@ module.exports = {
       },
       width: {
         desktop: '1440px'
+      },
+      height: {
+        '128': '32rem',
+        '144': '36rem'
       },
       colors: {
         primary: {
@@ -36,5 +41,15 @@ module.exports = {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ addUtilities }) {
+      addUtilities({
+        '.bg-overlay': {
+          'background': 'linear-gradient(var(--overlay-angle, 0deg), var(--overlay-colors)), var(--overlay-image)',
+          'background-position': 'center',
+          'background-size': 'cover',
+        },
+      });
+    }),
+  ],
 }
