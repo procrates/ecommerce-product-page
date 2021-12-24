@@ -1,9 +1,14 @@
 <template>
-    <section class="relative desktop:w-1/2 desktop:mt-10 desktop:mr-20">
-        <button @click="prev" class="absolute left-3 top-1/2 bg-neutral-white rounded-full">
+    <section
+        class="relative desktop:w-1/3 desktop:flex desktop:flex-col desktop:h-full desktop:flex-grow"
+    >
+        <button
+            @click="prev"
+            class="absolute z-10 rounded-full desktop:hidden left-3 top-1/2 bg-neutral-white"
+        >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-10 w-10"
+                class="w-10 h-10"
                 viewBox="0 0 20 20"
                 fill="currentColor"
             >
@@ -14,18 +19,28 @@
                 />
             </svg>
         </button>
+        <transition
+            enter-active-class="transition-all duration-500 ease-in"
+            enter-from-class="opacity-0"
+            enter-to-class="opacity-100"
+        >
+            <div>
+                <img
+                    :src="currentImage"
+                    alt="product image"
+                    class="object-cover bg-center desktop:w-full sm:rounded-xl"
+                    @click="disabled ? '' : lightboxToggle = !lightboxToggle"
+                />
+            </div>
+        </transition>
 
-        <img
-            v-for="i in [currentIndex]"
-            :src="currentImage.src"
-            :key="i"
-            alt="product image"
-            class="desktop:rounded-xl max-h-96 desktop:max-h-max"
-        />
-        <button @click="next" class="absolute right-3 top-1/2 bg-neutral-white rounded-full">
+        <button
+            @click="next"
+            class="absolute z-10 rounded-full desktop:hidden right-3 top-1/2 bg-neutral-white"
+        >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-10 w-10"
+                class="w-10 h-10"
                 viewBox="0 0 20 20"
                 fill="currentColor"
             >
@@ -36,37 +51,30 @@
                 />
             </svg>
         </button>
-        <div
-            v-if="windowWidthDesktop"
-            class="absolute flex-row space-x-5 flex flex-wrap justify-center"
-        >
-            <img v-for="img in productImages" :src="img.thumbnail" alt class="object-cover w-1/4" />
+        <div class="hidden desktop:grid desktop:grid-cols-4 desktop:gap-x-3 desktop:mt-10">
+            <button
+                v-for="(img,index) in products[0].thumbnails"
+                :class="index === currentIndex ? 'border-4 border-primary-ornage' : ''"
+                class="relative rounded-xl"
+                @click.prevent="changeImage(index)"
+            >
+                <div
+                    :class="index === currentIndex ? 'opacity-75 bg-white rounded-xl ' : ''"
+                    class="absolute inset-0 rounded-md opacity-75 hover:bg-white"
+                ></div>
+                <img
+                    :src="img"
+                    hover:border-4
+                    hover:border-primary-ornage
+                    class="object-cover w-auto rounded-xl"
+                />
+            </button>
         </div>
     </section>
 </template>
 <script setup lang="ts">
-const productImages = reactive([
-    {
-        id: 1,
-        src: "/images/image-product-1.jpg",
-        thumbnail: "/images/image-product-1-thumbnail.jpg"
-    },
-    {
-        id: 2,
-        src: "/images/image-product-2.jpg",
-        thumbnail: "/images/image-product-2-thumbnail.jpg"
-    },
-    {
-        id: 3,
-        src: "/images/image-product-3.jpg",
-        thumbnail: "/images/image-product-3-thumbnail.jpg"
-    },
-    {
-        id: 4,
-        src: "/images/image-product-4.jpg",
-        thumbnail: "/images/image-product-4-thumbnail.jpg"
-    },
-])
+const lightboxToggle = useLightboxToggleState()
+const products = useProducts()
 const currentIndex = ref(0)
 
 const next = () => {
@@ -78,28 +86,25 @@ const prev = () => {
 }
 
 const currentImage = computed(() => {
+    return products.value[0].images[Math.abs(currentIndex.value) % products.value[0].images.length];
+})
 
-    return productImages[Math.abs(currentIndex.value) % productImages.length];
+const changeImage = (index) => {
+    console.log(index)
+    currentIndex.value = index
 }
 
-)
-
-console.log(productImages.length);
-
 const { width } = useWindowSize()
-const windowWidthDesktop = computed(() => { return width.value >= 1440 })
-/* defineProps({
-    productImages: {
-        type: Array,
-        required: true,
-        default: () => [{ id: null, src: null }]
-    }
-}) */
-
+const disabled = ref(true)
+width.value <= 1440 ? disabled.value = true : disabled.value = false
+watch(width, () => {
+    console.log(width.value);
+    if (width.value >= 1440) { disabled.value = false } else { disabled.value = true }
+})
 </script>
 <style>
-.fade-enter-active,
-.fade-leave-active {
+.fade-enter-active-class,
+.fade-leave-active-class {
     transition: all 0.9s ease;
     overflow: hidden;
     visibility: visible;
@@ -108,8 +113,8 @@ const windowWidthDesktop = computed(() => { return width.value >= 1440 })
     opacity: 1;
 }
 
-.fade-enter,
-.fade-leave-to {
+.fade-enter-to-class,
+.fade-leave-to-class {
     visibility: hidden;
     width: 100%;
     opacity: 0;
