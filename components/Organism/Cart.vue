@@ -9,7 +9,7 @@
             <ul v-if="cartItems.length" class="flex-1">
                 <li v-for="item in cartItems" :key="item.id" class="flex items-stretch">
                     <img
-                        :src="item.thumbnail"
+                        :src="item.thumbnail[0]"
                         :alt="`${item.thumbnail} thumbnail`"
                         class="w-14 h-14 rounded-xl mr-3"
                     />
