@@ -2,7 +2,7 @@
     <section
         v-if="cartState"
         ref="cartRef"
-        class="absolute z-10 flex flex-col top-16 bg-neutral-white rounded-xl inset-x-2 desktop:w-1/4 desktop:right-2 desktop:left-auto desktop:shadow-2xl"
+        class="absolute z-20 flex flex-col top-16 bg-neutral-white rounded-xl inset-x-2 desktop:w-1/4 desktop:right-2 desktop:left-auto desktop:shadow-2xl"
     >
         <h1 class="p-5 font-bold bg-neutral-light-grayish-blue rounded-t-xl">Cart</h1>
         <div class="h-px bg-neutral-grayish-blue"></div>

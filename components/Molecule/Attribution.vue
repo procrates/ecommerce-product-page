@@ -1,12 +1,12 @@
 <template>
-    <div class="attribution mt-20">
+    <div class="mt-20 attribution">
         Challenge by
         <a
             href="https://www.frontendmentor.io?ref=challenge"
             target="_blank"
         >Frontend Mentor</a>.
         Coded by
-        <a href="#">Your Name Here</a>.
+        <a href="#">Mikael P. Martinsen</a>.
     </div>
 </template>
  <style>
