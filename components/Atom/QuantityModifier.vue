@@ -1,45 +1,55 @@
 <template>
     <div
-        class="bg-neutral-grayish-blue w-full flex items-center px-5 justify-between rounded-lg mr-3"
+        class="flex items-center justify-between w-full px-5 mr-3 rounded-lg bg-neutral-grayish-blue"
     >
-        <button @click="remove">
-            <svg width="12" height="4">
-                <defs>
-                    <path
-                        d="M11.357 3.332A.641.641 0 0 0 12 2.69V.643A.641.641 0 0 0 11.357 0H.643A.641.641 0 0 0 0 .643v2.046c0 .357.287.643.643.643h10.714Z"
-                        id="a"
-                    />
-                </defs>
-                <use fill="#FF7E1B" fill-rule="nonzero" xlink:href="#a" />
+        <button @click="remove" class="p-3 hover:text-xl">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-5 h-5 text-primary-ornage hover:text-primary-pale-orange hover:scale-150"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+            >
+                <path
+                    fill-rule="evenodd"
+                    d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                    clip-rule="evenodd"
+                />
             </svg>
         </button>
-        <span class="text-neutral-very-dark-blue font-bold">{{ itemQuantity }}</span>
-        <button @click="add">
+        <span class="font-bold text-neutral-very-dark-blue">{{ itemQuantity }}</span>
+        <button @click="add" class="p-3">
             <svg
-                width="12"
-                height="12"
                 xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
+                class="w-6 h-6 text-primary-ornage hover:text-primary-pale-orange hover:scale-150"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
             >
-                <defs>
-                    <path
-                        d="M12 7.023V4.977a.641.641 0 0 0-.643-.643h-3.69V.643A.641.641 0 0 0 7.022 0H4.977a.641.641 0 0 0-.643.643v3.69H.643A.641.641 0 0 0 0 4.978v2.046c0 .356.287.643.643.643h3.69v3.691c0 .356.288.643.644.643h2.046a.641.641 0 0 0 .643-.643v-3.69h3.691A.641.641 0 0 0 12 7.022Z"
-                        id="b"
-                    />
-                </defs>
-                <use fill="#FF7E1B" fill-rule="nonzero" xlink:href="#b" />
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 4v16m8-8H4"
+                />
             </svg>
         </button>
     </div>
 </template>
-<script setup lang="ts">
+<script setup lang="ts">import { useMsg } from '~~/composables/states'
+
 
 const itemQuantity = useQuantity()
+const msg = useMsg()
 const add = () => {
+    msg.value = ''
     itemQuantity.value++
 }
 const remove = () => {
-    if (itemQuantity.value <= 0) return alert('Cannot be less than 0')
+    if (itemQuantity.value <= 0) {
+        msg.value = 'Quantity needs to be atleast 1'
+        return
+    }
+    msg.value = ''
     itemQuantity.value--
 }
 

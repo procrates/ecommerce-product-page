@@ -1,8 +1,38 @@
+export const useNav = () => useState('navItems', () => [
+    {
+        id: 1,
+        label: "Collection",
+        link: "/collection"
+    },
+    {
+        id: 2,
+        label: "Men",
+        link: "/men"
+    },
+    {
+        id: 3,
+        label: "Woman",
+        link: "/woman"
+    },
+    {
+        id: 4,
+        label: "About",
+        link: "/about"
+    },
+    {
+        id: 5,
+        label: "Contact",
+        link: "/contact"
+    },
+
+])
 export const useNavState = () => useState<boolean>('navState', () => false)
 export const useCartState = () => useState<boolean>('cartState', () => false)
 
-export const useQuantity = () => useState<number>('itemQuantity', () => 1)
+export const useLightboxToggleState = () => useState('lightbox', () => false)
 
+export const useQuantity = () => useState<number>('itemQuantity', () => 1)
+export const useMsg = () => useState('msg', () => '')
 export const useCartItems = () => useState('cartItems', () => [])
 
 export const useProducts = () => useState('products', () => [
@@ -29,4 +59,3 @@ export const useProducts = () => useState('products', () => [
     }
 ])
 
-export const useLightboxToggleState = () => useState('lightbox', () => false)

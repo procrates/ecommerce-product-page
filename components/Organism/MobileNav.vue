@@ -1,12 +1,12 @@
 <template>
-    <div v-show="navState" class="absolute w-screen h-screen">
-        <div @click="closeNav" class="bg-black z-10 bg-opacity-75 absolute inset-0"></div>
-        <aside class="absolute inset-y-0 z-10 bg-neutral-white p-5 w-2/3">
+    <div v-if="navState" class="absolute z-20 w-screen h-screen">
+        <div @click="closeNav" class="absolute inset-0 z-10 bg-black bg-opacity-75"></div>
+        <aside class="absolute inset-y-0 z-10 w-2/3 p-5 bg-neutral-white">
             <nav>
                 <button class="mb-8" @click="closeNav">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5"
+                        class="w-5 h-5"
                         viewBox="0 0 20 20"
                         fill="currentColor"
                     >
@@ -24,40 +24,9 @@
         </aside>
     </div>
 </template>
-<script setup lang="ts">
-import { useNavState } from '~~/composables/states';
+<script setup lang="ts">import { useNav } from '~~/composables/states';
 
-
-const clicked = () => console.log('clicked');
-
-const navItems = ref([
-    {
-        id: 1,
-        label: "Collection",
-        link: "/collection"
-    },
-    {
-        id: 2,
-        label: "Men",
-        link: "/men"
-    },
-    {
-        id: 3,
-        label: "Woman",
-        link: "/woman"
-    },
-    {
-        id: 4,
-        label: "About",
-        link: "/about"
-    },
-    {
-        id: 5,
-        label: "Contact",
-        link: "/contact"
-    },
-
-])
+const navItems = useNav()
 const navState = useNavState()
 const closeNav = () => navState.value = false
 </script>

@@ -1,9 +1,9 @@
 <template>
     <div
         v-if="lightboxToggle"
-        class="fixed inset-0 flex flex-col items-center justify-center min-h-screen overflow-hidden bg-black bg-opacity-70 overscroll-contain"
+        class="fixed inset-0 flex flex-col items-center justify-center min-h-screen bg-black bg-opacity-70"
     >
-        <div class="flex flex-col flex-grow w-1/3" ref="target">
+        <div class="flex flex-col w-1/3" ref="target">
             <button
                 @click="lightboxToggle = !lightboxToggle"
                 class="self-end w-10 h-10 mb-3 text-primary-ornage"
@@ -73,7 +73,7 @@
                     <div
                         :class="index === currentIndex ? 'opacity-75 bg-white rounded-xl ' : ''"
                         class="absolute inset-0 rounded-md opacity-75 hover:bg-white"
-                    >{</div>
+                    ></div>
                     <img
                         :src="img"
                         hover:border-4

@@ -1,11 +1,12 @@
 <template>
-    <header class="flex py-3 justify-between mx-5">
-        <div class="flex space-x-3 items-center">
-            <button @click="openMenu" id="hamburger">
+    <header class="relative flex justify-between py-3 mx-5 desktop:my-10">
+        <div class="absolute inset-x-0 h-px -bottom-12 bg-neutral-dark-grayish-blue bg-opacity-20"></div>
+        <div class="flex items-center space-x-3">
+            <button @click="navState = !navState" id="hamburger" class="block desktop:hidden">
                 <span class="text-xl">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5"
+                        class="w-5 h-5"
                         viewBox="0 0 20 20"
                         fill="currentColor"
                     >
@@ -24,12 +25,22 @@
                     fill-rule="nonzero"
                 />
             </svg>
+            <nav class="hidden desktop:block">
+                <ul class="flex ml-10 space-x-5">
+                    <li
+                        v-for="item in navItems"
+                        :key="item.id"
+                        class="text-neutral-dark-grayish-blue"
+                    >{{ item.label }}</li>
+                </ul>
+            </nav>
         </div>
+
         <div class="flex space-x-3">
-            <button @click="cartState = !cartState" class="text-neutral-dark-grayish-blue">
+            <button @click="cartState = !cartState" class="z-20 text-neutral-dark-grayish-blue">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-8 w-8"
+                    class="w-8 h-8"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -49,8 +60,10 @@
     </header>
 </template>
 <script setup lang="ts">
+
+const navItems = useNav()
 const navState = useNavState()
-const openMenu = () => { navState.value = true }
 const cartState = useCartState()
+
 
 </script>

@@ -2,33 +2,33 @@
     <section
         v-if="cartState"
         ref="cartRef"
-        class="absolute flex flex-col top-16 z-10 bg-neutral-white rounded-xl inset-x-2 desktop:w-1/4 desktop:right-2 desktop:left-auto desktop:shadow-2xl"
+        class="absolute z-10 flex flex-col top-16 bg-neutral-white rounded-xl inset-x-2 desktop:w-1/4 desktop:right-2 desktop:left-auto desktop:shadow-2xl"
     >
-        <h1 class="font-bold bg-neutral-light-grayish-blue rounded-t-xl p-5">Cart</h1>
-        <div class="bg-neutral-grayish-blue h-px"></div>
+        <h1 class="p-5 font-bold bg-neutral-light-grayish-blue rounded-t-xl">Cart</h1>
+        <div class="h-px bg-neutral-grayish-blue"></div>
         <div class="flex flex-col flex-1 p-3">
             <ul v-if="cartItems.length" class="flex-1">
                 <li v-for="item in cartItems" :key="item.id" class="flex items-stretch">
                     <img
-                        :src="item.thumbnail[0]"
-                        :alt="`${item.thumbnail} thumbnail`"
-                        class="w-14 h-14 rounded-xl mr-3"
+                        :src="item.thumbnails[0]"
+                        :alt="`${item.thumbnails[0]} thumbnail`"
+                        class="mr-3 w-14 h-14 rounded-xl"
                     />
-                    <div class="flex flex-col w-56 justify-between h-full">
+                    <div class="flex flex-col justify-between w-56 h-full">
                         <span
-                            class="mr-5 text-neutral-dark-grayish-blue truncate text-ellipsis text-lg"
+                            class="mr-5 text-lg truncate text-neutral-dark-grayish-blue text-ellipsis"
                         >{{ item.title }}</span>
                         <span class="text-neutral-dark-grayish-blue">
                             ${{ formatPrice(item.price) }} x {{ item.quantity }}
                             <span
-                                class="font-bold text-neutral-very-dark-blue pl-1"
+                                class="pl-1 font-bold text-neutral-very-dark-blue"
                             >${{ totalItemPrice(item) }}</span>
                         </span>
                     </div>
-                    <button class="h-6 w-6" @click="removeItem(item)">
+                    <button class="w-6 h-6" @click="removeItem(item)">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="h-6 w-6 text-neutral-grayish-blue"
+                            class="w-6 h-6 text-neutral-grayish-blue"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -45,20 +45,24 @@
             </ul>
             <button
                 v-if="cartItems.length"
-                class="text-primary-pale-orange font-bold bg-primary-ornage py-2 rounded-xl w-full h-14 grow-0 mt-5"
+                class="w-full py-2 mt-5 font-bold transition-colors duration-200 text-primary-pale-orange bg-primary-ornage rounded-xl h-14 grow-0 hover:bg-primary-pale-orange hover:text-primary-ornage"
             >Checkout</button>
             <div
                 v-if="cartItems.length === 0"
-                class="text-neutral-dark-grayish-blue text-base font-bold inline-block self-center text-center"
+                class="self-center inline-block text-base font-bold text-center text-neutral-dark-grayish-blue"
             >Your cart is empty.</div>
         </div>
     </section>
 </template>
 <script setup lang="ts">
+
 const cartRef = ref(null)
 const cartState = useCartState()
 
-onClickOutside(cartRef, () => cartState.value = !cartState.value)
+onClickOutside(cartRef, (e) => {
+    cartState.value = !cartState.value
+})
+
 const cartItems = useCartItems()
 
 const totalItemPrice = (item) => {
@@ -71,7 +75,6 @@ const removeItem = (item) => {
         return i.id === item.id
     })
     cartItems.value.splice(index, 1)
-    console.log(cartItems.value);
 
 }
 const formatPrice = (value) => {

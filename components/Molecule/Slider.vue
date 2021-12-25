@@ -20,9 +20,12 @@
             </svg>
         </button>
         <transition
-            enter-active-class="transition-all duration-500 ease-in"
-            enter-from-class="opacity-0"
-            enter-to-class="opacity-100"
+            enter-active="transition-all duration-500 ease-in"
+            enter-from="opacity-0"
+            enter-to="opacity-100"
+            leave-active-class="transition-all duration-500 ease-in"
+            leave-from="opacity-0"
+            leave-to="opacity-100"
         >
             <div>
                 <img
@@ -66,7 +69,7 @@
                     :src="img"
                     hover:border-4
                     hover:border-primary-ornage
-                    class="object-cover w-auto rounded-xl"
+                    class="object-cover w-auto rounded-lg"
                 />
             </button>
         </div>
@@ -93,7 +96,6 @@ const changeImage = (index) => {
     console.log(index)
     currentIndex.value = index
 }
-
 const { width } = useWindowSize()
 const disabled = ref(true)
 width.value <= 1440 ? disabled.value = true : disabled.value = false
