@@ -54,7 +54,7 @@
                 </svg>
             </button>
             <span class="w-8 h-8">
-                <img src="/images/image-avatar.png" alt class="w-8 h-8" />
+                <img src="/images/image-avatar.png" class="w-8 h-8" />
             </span>
         </div>
     </header>
