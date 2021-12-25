@@ -32,7 +32,9 @@ export const useCartState = () => useState<boolean>('cartState', () => false)
 export const useLightboxToggleState = () => useState('lightbox', () => false)
 
 export const useQuantity = () => useState<number>('itemQuantity', () => 1)
+
 export const useMsg = () => useState('msg', () => '')
+
 export const useCartItems = () => useState('cartItems', () => [])
 
 export const useProducts = () => useState('products', () => [
