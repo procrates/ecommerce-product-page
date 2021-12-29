@@ -70,7 +70,6 @@ const totalItemPrice = (item) => {
 
 }
 const removeItem = (item) => {
-    console.log(cartItems.value, item.id);
     const index = cartItems.value.indexOf((i) => {
         return i.id === item.id
     })

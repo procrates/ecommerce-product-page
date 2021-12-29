@@ -26,9 +26,7 @@
         </section>
     </div>
 </template>
-<script setup lang="ts">import { useMsg } from '~~/composables/states'
-
-
+<script setup lang="ts">
 const itemQuantity = useQuantity()
 const products = useProducts()
 const cartItems = useCartItems()

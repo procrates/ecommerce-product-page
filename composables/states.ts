@@ -54,10 +54,11 @@ export const useProducts = () => useState('products', () => [
             '/images/image-product-4-thumbnail.jpg',
         ],
         images: [
-            '/images/image-product-1.jpg',
-            '/images/image-product-2.jpg',
-            '/images/image-product-3.jpg',
-            '/images/image-product-4.jpg',]
+            {index: 0, src:'/images/image-product-1.jpg',},
+            {index: 1, src:'/images/image-product-2.jpg',},
+            {index: 2, src:'/images/image-product-3.jpg',},
+            {index: 3, src:'/images/image-product-4.jpg',},
+        ]
     }
 ])
 

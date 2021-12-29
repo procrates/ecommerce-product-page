@@ -41,7 +41,6 @@
                 </button>
                 <img
                     :src="currentImage"
-                    alt
                     ref="target"
                     class="flex-shrink mx-auto rounded-xl aspect-square"
                 />
@@ -90,8 +89,6 @@ const lightboxToggle = useLightboxToggleState()
 const products = useProducts()
 const currentProduct = products.value[0]
 
-console.log(currentProduct);
-
 const currentIndex = ref(0)
 
 const next = () => {
@@ -107,7 +104,9 @@ const prev = () => {
 }
 
 const currentImage = computed(() => {
-    return currentProduct.images[Math.abs(currentIndex.value) % currentProduct.images.length];
+    console.log(currentProduct.images[Math.abs(currentIndex.value) % currentProduct.images.length].src);
+
+    return currentProduct.images[Math.abs(currentIndex.value) % currentProduct.images.length].src;
 })
 
 const changeImage = (index) => {

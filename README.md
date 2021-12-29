@@ -32,16 +32,17 @@ Users should be able to:
 ### Screenshot
 
 #### Desktop
+
 ![Main](./screens/Screenshot 2021-12-25 at 22.42.40.png)
 ![Slider](./screens/Screenshot 2021-12-25 at 22.44.05.png)
 ![Cart](./screens/Screenshot 2021-12-25 at 22.44.49.png)
 ![Lightbox](./screens/Screenshot 2021-12-25 at 22.45.26.png)
 
 #### Mobile
+
 ![Main](./screens/Screenshot 2021-12-25 at 22.51.23.png)
 ![Menu](./screens/Screenshot 2021-12-25 at 22.44.05.png)
 ![Cart](./screens/Screenshot 2021-12-25 at 22.53.57.png)
-
 
 ### Links
 
@@ -53,7 +54,7 @@ Users should be able to:
 ### Built with
 
 - Semantic HTML5 markup
-- 
+-
 - Flexbox
 - CSS Grid
 - Mobile-first workflow
@@ -67,28 +68,31 @@ This was the first time I`ve completed a Nuxt 3 project. On the way I have read 
 An example is using global states with ![useState](https://v3.nuxtjs.org/docs/usage/state#shared-state)
 
 ```js
-export const useNavState = () => useState<boolean>('navState', () => false)
+export const useNavState = () => useState < boolean > ("navState", () => false);
 ```
+
 I used those state throughout the project to handle changing states on different components. For example updating the cart items reactivly.
 
 I found out that vueUse has a implementation for Nuxt 3. Which I used to handle events where I need to toggle modal state when user clicks outside of the modal.
 
 ```js
 onClickOutside(cartRef, (e) => {
-    cartState.value = !cartState.value
-})
+  cartState.value = !cartState.value;
+});
 ```
+
 I also found some solutions for making a slider by changing the index of an array and using computed property to update the current image.
 
 ```js
 const currentImage = computed(() => {
-    return products.value[0].images[Math.abs(currentIndex.value) % products.value[0].images.length];
-})
+  return products.value[0].images[
+    Math.abs(currentIndex.value) % products.value[0].images.length
+  ];
+});
 
 const changeImage = (index) => {
-    console.log(index)
-    currentIndex.value = index
-}
+  currentIndex.value = index;
+};
 ```
 
 ### Continued development

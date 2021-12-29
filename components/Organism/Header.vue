@@ -37,7 +37,7 @@
         </div>
 
         <div class="flex space-x-3">
-            <button @click="cartState = !cartState" class="z-20 text-neutral-dark-grayish-blue">
+            <button @click="cartState = !cartState" class="z-10 text-neutral-dark-grayish-blue">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="w-8 h-8"
@@ -54,7 +54,7 @@
                 </svg>
             </button>
             <span class="w-8 h-8">
-                <img src="/images/image-avatar.png" class="w-8 h-8" />
+                <img src="images/image-avatar.png" class="w-8 h-8" />
             </span>
         </div>
     </header>

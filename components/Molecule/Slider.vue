@@ -19,23 +19,23 @@
                 />
             </svg>
         </button>
-        <transition
-            enter-active="transition-all duration-500 ease-in"
-            enter-from="opacity-0"
-            enter-to="opacity-100"
-            leave-active-class="transition-all duration-500 ease-in"
-            leave-from="opacity-0"
-            leave-to="opacity-100"
-        >
-            <div>
+        <div class="block overflow-hidden">
+            ci{{ currentIndex }} cii {{ nextImageIndex }}
+            <transition-group
+                enter-active-class="transition-transform duration-500 ease-in"
+                :enter-from-class="currentIndex < nextImageIndex ? '-translate-x-full' : 'translate-x-full'"
+                leave-active-class="transition-transform duration-500 ease-in"
+                :leave-from-class="currentIndex < nextImageIndex ? '-translate-x-full' : 'translate-x-full'"
+            >
                 <img
-                    :src="currentImage"
+                    :src="currentImage.src"
+                    :key="currentImage.index"
                     alt="product image"
-                    class="object-cover bg-center desktop:w-full sm:rounded-xl"
+                    class="block object-cover overflow-hidden transition-all bg-center desktop:w-full sm:rounded-xl"
                     @click="disabled ? '' : lightboxToggle = !lightboxToggle"
                 />
-            </div>
-        </transition>
+            </transition-group>
+        </div>
 
         <button
             @click="next"
@@ -54,7 +54,7 @@
                 />
             </svg>
         </button>
-        <div class="hidden desktop:grid desktop:grid-cols-4 desktop:gap-x-3 desktop:mt-10">
+        <div class="relative hidden desktop:grid desktop:grid-cols-4 desktop:gap-x-3 desktop:mt-10">
             <button
                 v-for="(img,index) in products[0].thumbnails"
                 :class="index === currentIndex ? 'border-4 border-primary-ornage' : ''"
@@ -65,6 +65,7 @@
                     :class="index === currentIndex ? 'opacity-75 bg-white rounded-xl ' : ''"
                     class="absolute inset-0 rounded-md opacity-75 hover:bg-white"
                 ></div>
+
                 <img
                     :src="img"
                     hover:border-4
@@ -79,21 +80,23 @@
 const lightboxToggle = useLightboxToggleState()
 const products = useProducts()
 const currentIndex = ref(0)
+const nextImageIndex = ref(null)
 
 const next = () => {
-    currentIndex.value++;
+    currentIndex.value++
+    nextImageIndex.value = currentIndex.value + 1
 }
 
 const prev = () => {
-    currentIndex.value--;
+    currentIndex.value--
+    nextImageIndex.value = currentIndex.value - 1
 }
 
 const currentImage = computed(() => {
-    return products.value[0].images[Math.abs(currentIndex.value) % products.value[0].images.length];
+    return products.value[0].images[Math.abs(currentIndex.value) % products.value[0].images.length]
 })
-
+currentIndex.value++
 const changeImage = (index) => {
-    console.log(index)
     currentIndex.value = index
 }
 const { width } = useWindowSize()
