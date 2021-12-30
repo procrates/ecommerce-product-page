@@ -19,24 +19,26 @@
                 />
             </svg>
         </button>
-        <div class="block overflow-hidden">
-            ci{{ currentIndex }} cii {{ nextImageIndex }}
-            <transition-group
-                enter-active-class="transition-transform duration-500 ease-in"
-                :enter-from-class="currentIndex < nextImageIndex ? '-translate-x-full' : 'translate-x-full'"
-                leave-active-class="transition-transform duration-500 ease-in"
-                :leave-from-class="currentIndex < nextImageIndex ? '-translate-x-full' : 'translate-x-full'"
+        <div class="relative overflow-hidden" :style="`height: ${height}px`">
+            <transition
+                enter-active-class="transition-all duration-[400ms] rounded-none"
+                :enter-from-class="nextImage ? 'left-full' : '-left-full'"
+                :enter-to-class="nextImage ? '-translate-x-full left-full' : 'translate-x-full -left-full'"
+                leave-active-class="transition duration-[400ms]"
+                :leave-to-class="nextImage ? '-translate-x-full' : 'translate-x-full'"
             >
-                <img
-                    :src="currentImage.src"
-                    :key="currentImage.index"
-                    alt="product image"
-                    class="block object-cover overflow-hidden transition-all bg-center desktop:w-full sm:rounded-xl"
-                    @click="disabled ? '' : lightboxToggle = !lightboxToggle"
-                />
-            </transition-group>
+                <div class="absolute w-full h-full" :key="activeImage.index">
+                    <img
+                        ref="el"
+                        :src="activeImage.src"
+                        :key="activeImage.index"
+                        alt="product image"
+                        class="object-cover overflow-hidden bg-center sm:rounded-xl"
+                        @click="disabled ? '' : lightboxToggle = !lightboxToggle"
+                    />
+                </div>
+            </transition>
         </div>
-
         <button
             @click="next"
             class="absolute z-10 rounded-full desktop:hidden right-3 top-1/2 bg-neutral-white"
@@ -57,12 +59,12 @@
         <div class="relative hidden desktop:grid desktop:grid-cols-4 desktop:gap-x-3 desktop:mt-10">
             <button
                 v-for="(img,index) in products[0].thumbnails"
-                :class="index === currentIndex ? 'border-4 border-primary-ornage' : ''"
+                :class="index === activeImageIndex ? 'border-4 border-primary-ornage' : ''"
                 class="relative rounded-xl"
                 @click.prevent="changeImage(index)"
             >
                 <div
-                    :class="index === currentIndex ? 'opacity-75 bg-white rounded-xl ' : ''"
+                    :class="index === activeImageIndex ? 'opacity-75 bg-white rounded-xl ' : ''"
                     class="absolute inset-0 rounded-md opacity-75 hover:bg-white"
                 ></div>
 
@@ -79,26 +81,42 @@
 <script setup lang="ts">
 const lightboxToggle = useLightboxToggleState()
 const products = useProducts()
-const currentIndex = ref(0)
-const nextImageIndex = ref(null)
-
+const activeImageIndex = ref(0)
+const nextImage = ref(null)
 const next = () => {
-    currentIndex.value++
-    nextImageIndex.value = currentIndex.value + 1
+    if (activeImageIndex.value === products.value[0].images.length - 1) {
+        nextImage.value = true
+        activeImageIndex.value = 0
+        return
+    }
+    nextImage.value = true
+    activeImageIndex.value = activeImageIndex.value + 1
 }
 
 const prev = () => {
-    currentIndex.value--
-    nextImageIndex.value = currentIndex.value - 1
+    if (activeImageIndex.value === 0) {
+        nextImage.value = false
+        return activeImageIndex.value = products.value[0].images.length - 1
+    }
+    nextImage.value = false
+    activeImageIndex.value = activeImageIndex.value - 1
 }
 
-const currentImage = computed(() => {
-    return products.value[0].images[Math.abs(currentIndex.value) % products.value[0].images.length]
+const activeImage = computed(() => {
+    return products.value[0].images[activeImageIndex.value];
 })
-currentIndex.value++
+
 const changeImage = (index) => {
-    currentIndex.value = index
+    if (index > activeImageIndex.value) {
+        nextImage.value = false
+        activeImageIndex.value = index
+        return
+    }
+    nextImage.value = true
+    activeImageIndex.value = index
 }
+
+
 const { width } = useWindowSize()
 const disabled = ref(true)
 width.value <= 1440 ? disabled.value = true : disabled.value = false
@@ -106,22 +124,11 @@ watch(width, () => {
     console.log(width.value);
     if (width.value >= 1440) { disabled.value = false } else { disabled.value = true }
 })
+
+const el = ref(null)
+const { height } = useElementSize(el)
+
+
 </script>
 <style>
-.fade-enter-active-class,
-.fade-leave-active-class {
-    transition: all 0.9s ease;
-    overflow: hidden;
-    visibility: visible;
-    position: absolute;
-    width: 100%;
-    opacity: 1;
-}
-
-.fade-enter-to-class,
-.fade-leave-to-class {
-    visibility: hidden;
-    width: 100%;
-    opacity: 0;
-}
 </style>
