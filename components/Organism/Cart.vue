@@ -102,10 +102,23 @@ const cartItems = useCartItems()
 const cartRef = ref(null)
 onClickOutside(cartRef, () => cartState.value = !cartState.value)
 
-//const totalItemPrice = (item) => formatPrice(item.price * item.quantity)
-//const formatPrice = (value) => useFormatPrice(value)
+const totalItemPrice = (item) => formatPrice(item.price * item.quantity)
+const formatPrice = (value) => useFormatPrice(value)
 
-/* const removeItem = (item) => useRemoveItem(item)
-const addOneItem = (item) => useAddOneItem(item) */
-//const removeOneItem = (item) => useRemoveOneItem(item)
+const removeItem = (item) => {
+    const index = cartItems.value.indexOf((i) => {
+        return i.id === item.id
+    })
+    cartItems.value.splice(index, 1)
+}
+const addOneItem = (item) => cartItems.value.find(i => i.id === item.id).quantity++
+const removeOneItem = (item) => {
+    cartItems.value.find(i => i.id === item.id).quantity--
+    if (item.quantity === 0) {
+        const index = cartItems.value.indexOf((i) => {
+            return i.id === item.id
+        })
+        cartItems.value.splice(index, 1)
+    }
+}
 </script>
