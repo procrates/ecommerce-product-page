@@ -33,22 +33,54 @@
                                 >${{ totalItemPrice(item) }}</span>
                             </span>
                         </div>
-                        <button class="w-6 h-6" @click="removeItem(item)">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="w-6 h-6 text-neutral-grayish-blue"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                                />
-                            </svg>
-                        </button>
+                        <div class="flex flex-col items-center">
+                            <button class="w-6 h-6" @click="removeItem(item)">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="w-6 h-6 text-neutral-grayish-blue"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                    />
+                                </svg>
+                            </button>
+                            <div class="flex mt-2">
+                                <button @click="removeOneItem(item)">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        class="w-5 h-5"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor"
+                                    >
+                                        <path
+                                            fill-rule="evenodd"
+                                            d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z"
+                                            clip-rule="evenodd"
+                                        />
+                                    </svg>
+                                </button>
+                                <button @click="addOneItem(item)">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        class="w-5 h-5"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor"
+                                    >
+                                        <path
+                                            fill-rule="evenodd"
+                                            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                            clip-rule="evenodd"
+                                        />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
                     </li>
                 </ul>
                 <button
@@ -64,29 +96,16 @@
     </transition>
 </template>
 <script setup lang="ts">
-
-const cartRef = ref(null)
 const cartState = useCartState()
-
-onClickOutside(cartRef, () => {
-    cartState.value = !cartState.value
-})
-
 const cartItems = useCartItems()
 
-const totalItemPrice = (item) => {
-    return formatPrice(item.price * item.quantity)
+const cartRef = ref(null)
+onClickOutside(cartRef, () => cartState.value = !cartState.value)
 
-}
-const removeItem = (item) => {
-    const index = cartItems.value.indexOf((i) => {
-        return i.id === item.id
-    })
-    cartItems.value.splice(index, 1)
+//const totalItemPrice = (item) => formatPrice(item.price * item.quantity)
+//const formatPrice = (value) => useFormatPrice(value)
 
-}
-const formatPrice = (value) => {
-    let val = (value / 1).toFixed(2).replace('.', ',')
-    return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-}
+/* const removeItem = (item) => useRemoveItem(item)
+const addOneItem = (item) => useAddOneItem(item) */
+//const removeOneItem = (item) => useRemoveOneItem(item)
 </script>

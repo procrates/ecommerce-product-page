@@ -99,8 +99,8 @@ watch(width, () => {
 })
 const url = "/images/image-avatar.png"
 
-/* const cartQuantity = computed(() => {
+const cartQuantity = computed(() => {
     if (!cart.value.length) return
     return cart.value.reduce((acc = 0, curr) => acc + curr.quantity).quantity
-}) */
+})
 </script>
