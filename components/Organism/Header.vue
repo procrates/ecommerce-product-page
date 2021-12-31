@@ -45,9 +45,10 @@
                 @click="cartState = !cartState"
                 class="z-10 text-neutral-dark-grayish-blue"
             >
+                <span class="inline-block mr-3 text-lg" v-if="cartQuantity">{{ cartQuantity }}</span>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-8 h-8"
+                    class="inline-block w-8 h-8"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -61,9 +62,10 @@
                 </svg>
             </button>
             <div v-else class="z-10 text-neutral-dark-grayish-blue">
+                <span class="inline-block mr-3 text-lg" v-if="cartQuantity">{{ cartQuantity }}</span>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-8 h-8"
+                    class="inline-block w-8 h-8"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -77,21 +79,28 @@
                 </svg>
             </div>
             <span class="w-8 h-8">
-                <img src="/images/image-avatar.png" class="w-8 h-8" />
+                <img :src="url" class="w-8 h-8" />
             </span>
         </div>
     </header>
 </template>
 <script setup lang="ts">
-
 const navItems = useNav()
 const navState = useNavState()
 const cartState = useCartState()
+const cart = useCartItems()
 
 const { width } = useWindowSize()
+
 const disabled = ref(true)
 const small = width.value <= 1440
 watch(width, () => {
     if (width.value >= 1440) { disabled.value = false } else { disabled.value = true }
 })
+const url = "/images/image-avatar.png"
+
+/* const cartQuantity = computed(() => {
+    if (!cart.value.length) return
+    return cart.value.reduce((acc = 0, curr) => acc + curr.quantity).quantity
+}) */
 </script>

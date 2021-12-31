@@ -107,7 +107,7 @@ const activeImage = computed(() => {
 })
 
 const changeImage = (index) => {
-    if (index > activeImageIndex.value) {
+    if (index < activeImageIndex.value) {
         nextImage.value = false
         activeImageIndex.value = index
         return
