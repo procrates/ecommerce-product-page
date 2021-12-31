@@ -33,16 +33,16 @@ Users should be able to:
 
 #### Desktop
 
-[Main](/screens/Screenshot 2021-12-25 at 22.42.40.png)
-[Slider](/screens/Screenshot 2021-12-25 at 22.44.05.png)
-[Cart](/screens/Screenshot 2021-12-25 at 22.44.49.png)
-[Lightbox](/screens/Screenshot 2021-12-25 at 22.45.26.png)
+![Main](/screens/Screenshot 2021-12-25 at 22.42.40.png)
+![Slider](/screens/Screenshot 2021-12-25 at 22.44.05.png)
+![Cart](/screens/Screenshot 2021-12-25 at 22.44.49.png)
+![Lightbox](/screens/Screenshot 2021-12-25 at 22.45.26.png)
 
 #### Mobile
 
-[Main](/screens/Screenshot 2021-12-25 at 22.51.23.png)
-[Menu](/screens/Screenshot 2021-12-25 at 22.44.05.png)
-[Cart](/screens/Screenshot 2021-12-25 at 22.53.57.png)
+![Main](/screens/Screenshot 2021-12-25 at 22.51.23.png)
+![Menu](/screens/Screenshot 2021-12-25 at 22.44.05.png)
+![Cart](/screens/Screenshot 2021-12-25 at 22.53.57.png)
 
 ### Links
 
